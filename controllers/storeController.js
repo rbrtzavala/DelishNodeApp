@@ -4,5 +4,9 @@ exports.homePage = (req, res) => {
 };
 
 exports.addStore = (req, res) => {
-  res.send('It Works!');
-}
+  res.render('editStore', { title: '💩Add Store' });
+};
+
+exports.createStore = (req, res) => {
+  res.json(req.body);
+};
