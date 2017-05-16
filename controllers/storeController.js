@@ -16,9 +16,10 @@ exports.addStore = (req, res) => {
 // When using async/await you need to use function composition to handle errors.
 // Routes/index passes createStore to catchErrors() for this.
 exports.createStore = async (req, res) => {
-  const store = new Store(req.body);
+  const store = await (new Store(req.body)).save();
   // Fire off connection to mongodb db and come back with store or err.
   // Make use of mongodb Promises here to avoid callback-hell
   await store.save(); // await is waiting for a Promise to return
-  res.redirect('/');;
+  req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
+  res.redirect(`/store/${store.slug}`);
 };
