@@ -21,5 +21,5 @@ exports.createStore = async (req, res) => {
   // Make use of mongodb Promises here to avoid callback-hell
   await store.save(); // await is waiting for a Promise to return
   req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
-  res.redirect(`/store/${store.slug}`);
+  res.redirect(`/store/${store.slug}`, '');
 };
