@@ -14,5 +14,7 @@ router.get('/add', storeController.addStore);
 // Using catchErrors() here fas Function Composition:
 // Combining more than one function to produce a new function.
 router.post('/add', catchErrors(storeController.createStore));
+router.post('/add/:id', catchErrors(storeController.updateStore));
+router.get('/stores/:id/edit', catchErrors(storeController.editStore));
 
 module.exports = router;
