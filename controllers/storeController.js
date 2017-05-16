@@ -21,5 +21,12 @@ exports.createStore = async (req, res) => {
   // Make use of mongodb Promises here to avoid callback-hell
   await store.save(); // await is waiting for a Promise to return
   req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
-  res.redirect(`/store/${store.slug}`, '');
+  res.redirect(`/store/${store.slug}`);
+};
+
+exports.getStores = async (req, res) => {
+  // 1. Query the database for a list of all stores to display
+  const stores = await Store.find();
+  console.log(stores);
+  res.render('stores', { title: 'Stores', stores });
 };
