@@ -1,12 +1,24 @@
+// Import mongoose
+const mongoose = require('mongoose');
+// Import our Store from models
+const Store = mongoose.model('Store');
+
 exports.homePage = (req, res) => {
   console.log(req.name);
   res.render('index');
 };
 
 exports.addStore = (req, res) => {
-  res.render('editStore', { title: '💩Add Store' });
+  res.render('editStore', { title: '💩 Add Store' });
 };
 
-exports.createStore = (req, res) => {
-  res.json(req.body);
+// use es8 async/await
+// When using async/await you need to use function composition to handle errors.
+// Routes/index passes createStore to catchErrors() for this.
+exports.createStore = async (req, res) => {
+  const store = new Store(req.body);
+  // Fire off connection to mongodb db and come back with store or err.
+  // Make use of mongodb Promises here to avoid callback-hell
+  await store.save(); // await is waiting for a Promise to return
+  res.redirect('/');;
 };
